@@ -11,7 +11,6 @@ class chatbot(discord.Client):
         bot_message = "봇 " # ~~하는중
         game = discord.Game(f"{bot_message}")
         
-
         # 계정 상태를 변경한다=> 온라인 상태, game 중으로 설정
         await client.change_presence(status=discord.Status.online, activity=game)
 
@@ -48,7 +47,6 @@ class chatbot(discord.Client):
                     await channel.send(f'```{learn[1]} 이것을 기억.```')
                     break
                
-
             file.save("memory.xlsx")
             return
 
@@ -80,10 +78,8 @@ class chatbot(discord.Client):
             return
 
         
-        # message.content = message의 내용
+
         if message.content == "반가워요":
-            # 현재 채널을 받아옴
-            channel = message.channel
             # 답변 내용 구성
             msg = "저도 반갑습니다."
             # msg에 지정된 내용대로 메시지를 전송
@@ -93,13 +89,20 @@ class chatbot(discord.Client):
 
 
         elif message.content == "주사위":
-            # 현재 채널을 받아옴
-            channel = message.channel
-            # 답변 내용 구성
+
             msg = random.randint(1,6)
             # msg에 지정된 내용대로 메시지를 전송
             await channel.send(msg)
             return None
+
+        elif message.content == "로또":
+            rotto = list(range(1,46))
+            random.shuffle(rotto)
+            msg = rotto[0:6]
+            # msg에 지정된 내용대로 메시지를 전송
+            await channel.send(msg)
+            return None
+
 
 
 
@@ -110,5 +113,5 @@ if __name__ == "__main__":
     client = chatbot()
 
     # TOKEN 값을 통해 로그인하고 봇을 실행
-    Token_number = " "
+    Token_number = ""
     client.run(Token_number)
